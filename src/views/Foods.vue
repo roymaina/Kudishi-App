@@ -341,7 +341,7 @@ export default  {
 
 #explore{
   font-weight: bold;
-  margin-left: -40%;
+  margin-left: 3%;
   text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 

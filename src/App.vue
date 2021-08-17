@@ -30,6 +30,7 @@ export default {
    url(./assets/fonts/Poppins-Medium.ttf) format("truetype");
 }
 *{
+  font-family: "Poppins";
   margin:0;
   padding:0;
 }
