@@ -7,7 +7,7 @@
       <div class="lunchtext">
         <h1>
           It's <br />
-          LunchTime!
+          LunchTime...
         </h1>
       </div>
       <div class="lunchimg">
