@@ -18,7 +18,7 @@
       <div id="foodmenu">
         <span>Food Menu</span>
       </div>
-      <img src="../assets/imgs/trolley.png" />
+      <img class="Cart" @click="gotoCart" src="../assets/imgs/trolley.png" />
     </div>
     <div class="parent">
       <div class="lunchcontents" id="child">
@@ -137,6 +137,9 @@ export default {
     backtoFoods() {
       console.log("Food");
       this.$router.push("/Foods");
+    },
+    gotoCart () {
+      this.$router.push("/Cart");
     },
     currentFood(name) {
       this.current_food = name;
@@ -351,5 +354,9 @@ export default {
 #foodmenu{
   font-weight: bold;
   text-shadow: rgba(0, 0, 0, 0.24)0px 3px 8px;
+}
+
+.Cart{
+  cursor: pointer;
 }
 </style>
