@@ -69,7 +69,9 @@
   </div>
 </template>
 
-<script>
+<script> 
+/*eslint-disable-next-line*/
+import { bus } from "../main";
 export default {
   data() {
     return {
@@ -144,7 +146,7 @@ export default {
     currentFood(name) {
       this.current_food = name;
     },
-    removeOrder() {
+    removeOrder(route) {
       for (let i = 0; i < this.ordered_foods.length; i++) {
         if (this.ordered_foods[i]["Food"] == this.current_food) {
           this.ordered_foods[i]["numTimes"] -= 1;
@@ -155,8 +157,9 @@ export default {
         }
       }
       console.log(this.ordered_foods);
+      bus.$emit("name", route);
     },
-    addOrder() {
+    addOrder(route) {
       for (let i = 0; i < this.ordered_foods.length; i++) {
         if (this.ordered_foods[i]["Food"] == this.current_food) {
           this.ordered_foods[i]["numTimes"] += 1;
@@ -169,6 +172,7 @@ export default {
         numTimes: 1,
       });
       console.log(this.ordered_foods);
+      bus.$emit("name",route);
       // console.log(this.ordered_foods);
     },
     checkFood() {
@@ -184,6 +188,7 @@ export default {
         return false;
       }
     },
+
   },
 };
 </script>

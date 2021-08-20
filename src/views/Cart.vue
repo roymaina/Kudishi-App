@@ -16,6 +16,8 @@
 
 <script>
 
+import { bus } from "../main";
+
 export default {
   data(){
     return{
@@ -30,13 +32,13 @@ export default {
     }
   },
   mounted(){
-    this.emitter.on("changed", (dt) => {
-      console.log('Called bus' + dt);
-      this.food = dt;
-    });
+    // this.emitter.on("changed", (dt) => {
+    //   console.log('Called bus' + dt);
+    //   this.food = dt;
+    bus.$on("name", data => {console.log(data)});
+  }
   }
 
-}
 </script>
 <style scoped>
 #Cart-container{
