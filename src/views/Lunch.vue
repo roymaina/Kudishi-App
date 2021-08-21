@@ -33,15 +33,15 @@
           <div class="myclass"
           v-show="current_food && current_food==icon.name">
             <div
-              @click="removeOrder"
-              class = "remove"
+              @click="addOrder"
+              class = "add"
             >
               +
             </div>
-            {{ current_food }}
+            {{ counter }}
             <div
-              @click="addOrder"
-              class = "add"
+              @click="removeOrder"
+              class = "remove"
             >
               -
             </div>
@@ -73,6 +73,7 @@
 export default {
   data() {
     return {
+      counter : 0,
       icons: [
         {
           icon: require("@/assets/imgs/githeri.png"),
@@ -145,6 +146,7 @@ export default {
       for (let i = 0; i < this.ordered_foods.length; i++) {
         if (this.ordered_foods[i]["Food"] == this.current_food) {
           this.ordered_foods[i]["numTimes"] -= 1;
+          this.counter --;
           // return;
           if (this.ordered_foods[i]["numTimes"] < 1) {
             this.ordered_foods.splice(i, 1);
@@ -158,8 +160,10 @@ export default {
         if (this.ordered_foods[i]["Food"] == this.current_food) {
           this.ordered_foods[i]["numTimes"] += 1;
           console.log(this.ordered_foods);
+          this.counter ++;
           return;
         }
+  
       }
       this.ordered_foods.push({
         Food: this.current_food,
