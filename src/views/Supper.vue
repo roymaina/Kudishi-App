@@ -75,6 +75,7 @@
 <script>
 
 
+/*eslint-disable-next-line*/
 import { bus } from "../main";
 export default {
   data() {

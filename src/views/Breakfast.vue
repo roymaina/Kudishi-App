@@ -26,56 +26,33 @@
           class="perfood"
           v-for="(icon, id) in icons"
           :key="id"
-          @click="currentFood(icon.name), checkFood()"
+          @click="current_food_action(icon.name), checkFood()"
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
-          <div class="myclass"
-          v-show="current_food && current_food==icon.name">
-            <div
-              @click="addOrder"
-              class = "add"
-            >
-              +
-            </div>
-            {{ counter }}
-            <div
-              @click="removeOrder"
-              class = "remove"
-            >
-              -
-            </div>
+          <div
+            class="myclass"
+            v-show="current_food && current_food == icon.name"
+          >
+            <div @click="add_order(), show_counter()" class="add">+</div>
+            {{ current_food_counter }}
+            <div @click="remove_order" class="remove">-</div>
           </div>
           <p>Hello</p>
           <h5>{{ icon.price }}</h5>
         </div>
       </div>
     </div>
-    <!-- <div class="parent">
-      <div
-        class="lunchcontents"
-        id="child"
-        v-for="(icon, index) in icons"
-        :key="index"
-      >
-        <div>
-        <img :src="icon.icon"/>
-        <span>{{ icon.name }}</span>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <router-view /> -->
   </div>
 </template>
 
-<script> 
+<script>
 /*eslint-disable-next-line*/
 import { bus } from "../main";
+import { mapState, mapActions} from 'vuex';
 export default {
   data() {
     return {
-      counter: 0,
       icons: [
         {
           icon: require("../assets/imgs/Ngwaci.jpg"),
@@ -132,73 +109,44 @@ export default {
           router: " ",
         },
       ],
-      current_food: null,
-      ordered_foods: [],
+      current_food_counter:0,
     };
   },
   methods: {
+    ...mapActions(["add_order", "remove_order", "current_food_action"]),
+    show_counter(){
+     console.log(this.$store.state.ordered_foods);
+    },
     backtoFoods() {
       console.log("Food");
       this.$router.push("/Foods");
     },
-    gotoCart () {
+    gotoCart() {
       this.$router.push("/Cart");
     },
-    currentFood(name) {
-      this.current_food = name;
-    },
-    removeOrder(route) {
-      for (let i = 0; i < this.ordered_foods.length; i++) {
-        if (this.ordered_foods[i]["Food"] == this.current_food) {
-          this.ordered_foods[i]["numTimes"] -= 1;
-          this.counter--;
-          // return;
-          if (this.ordered_foods[i]["numTimes"] < 1) {
-            this.ordered_foods.splice(i, 1);
-          }
-        }
-      }
-      console.log(this.ordered_foods);
-      bus.$emit("name", route);
-    },
-    addOrder(route) {
-      for (let i = 0; i < this.ordered_foods.length; i++) {
-        if (this.ordered_foods[i]["Food"] == this.current_food) {
-          this.ordered_foods[i]["numTimes"] += 1;
-          console.log(this.ordered_foods);
-          this.counter++;
-          return;
-        }
-      }
-      this.ordered_foods.push({
-        Food: this.current_food,
-        numTimes: 1,
-      });
-      console.log(this.ordered_foods);
-      bus.$emit("name",route);
-      // console.log(this.ordered_foods);
-    },
     checkFood() {
-      let checked = this.ordered_foods.filter((e) => {
+      this.current_food_counter = this.ordered_foods
+      .filter((e) => {
         return e["Food"] == this.current_food;
-      });
-      console.log(checked);
-      if (checked == undefined) {
-        console.log(true);
-        return true;
-      } else {
-        console.log(false);
-        return false;
-      }
+      })
+      .map((e) => {
+        return e['numTimes']
+      })[0]
     },
-
+  },
+  computed: {
+    ...mapState({
+      counter: (state) => state.counter,
+      ordered_foods: (state) => state.ordered_foods,
+      current_food: (state) => state.current_food,
+    }),
   },
 };
 </script>
 
 <style scoped>
-*{
-  font-family: 'Poppins';
+* {
+  font-family: "Poppins";
 }
 .lunch-container {
   background-color: #f1eeee;
@@ -287,9 +235,15 @@ export default {
   opacity: 60%;
   animation: mymove 1s forwards;
 }
-@keyframes mymove{
-  from {width: 100%; height: 0%;}
-  to {width: 100%; height: 100%;}
+@keyframes mymove {
+  from {
+    width: 100%;
+    height: 0%;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .remove {
@@ -359,12 +313,12 @@ export default {
   padding: 20px;
 }
 
-#foodmenu{
+#foodmenu {
   font-weight: bold;
-  text-shadow: rgba(0, 0, 0, 0.24)0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.Cart{
+.Cart {
   cursor: pointer;
 }
 </style>
