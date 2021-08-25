@@ -5,21 +5,19 @@
         <img src="..//assets/imgs/back.svg" />
       </div>
       <div id="spannimage">
-        <span id="Title">Kudishi Orders</span>
-        <img src="../assets/imgs/drooling-emoji.jpg" />
+        <span id="Title">My Orders</span>
+        <img src="../assets/imgs/droolingface.png" />
       </div>
     </div>
-
-    <span>{{ food }}</span>
     <!-- <button @click="$store.commit('decrease')">Decrease</button>
     <span>{{counter}}</span>
     <button @click="$store.commit('increase')">Increase</button> -->
     <!-- <button @click="sub">Subtract</button>
     <span>{{counter}}</span>
     <button @click="add">Add</button> -->
-    <div>
-      <span>{{ ordered_foods }}</span>
-      <span>{{counter}}</span>
+    <div class="FoodnOrder">
+      <span v-for="(f, i) in ordered_foods" :key="i">{{ f[0] }} {{f[1]}} <br></span>
+      <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
     </div>
   </div>
 </template>
@@ -37,7 +35,7 @@ export default {
   computed: {
     ...mapState({
       counter: (state) => state.counter,
-      ordered_foods: (state) => state.ordered_foods,
+      ordered_foods: (state) => (state.ordered_foods).map((e)=>{ return [e["Food"], e["numTimes"]]}),
     }),
     ...mapGetters(["getCount"]),
   },
@@ -87,19 +85,30 @@ export default {
   display: flex;
   margin-left: 25%;
   align-items: center;
-  margin-top: 2%;
+  margin-top: -5%;
 }
 
 #spannimage img {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   padding-left: 10px;
 }
 
 #Title{
   text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-weight:bold;
-  
+  font-size: 150%;
+  margin-left: -5%;
  
+}
+.FoodnOrder{
+  width: 100%;
+  height: 35%;
+  background-color: green;
+
+}
+
+#FoodnOrder span{
+  font-weight: bold;
 }
 </style>
