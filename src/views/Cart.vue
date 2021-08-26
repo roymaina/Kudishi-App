@@ -16,7 +16,7 @@
     <span>{{counter}}</span>
     <button @click="add">Add</button> -->
     <div class="FoodnOrder">
-      <span v-for="(f, i) in ordered_foods" :key="i">{{ f[0] }} {{f[1]}} <br></span>
+      <div v-for="(f, i) in ordered_foods" :key="i">{{ f[0] }} {{f[1]}}</div>
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
     </div>
   </div>
@@ -102,13 +102,25 @@ export default {
  
 }
 .FoodnOrder{
-  width: 100%;
-  height: 35%;
-  background-color: green;
+  width: 105%;
+  height: 89%;
+  overflow-y: scroll;
 
 }
 
-#FoodnOrder span{
+.FoodnOrder div{
+  width: auto;
+  height: 70px;
   font-weight: bold;
+  /* border: 1px solid red; */
+  margin-bottom: 5%;
+  margin-top:5%;
+  padding-right: 50px;
+  padding-left: 5%;
+  padding-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 35px;
+  text-align-last: justify;
+  /* background-color: red; */
 }
 </style>
