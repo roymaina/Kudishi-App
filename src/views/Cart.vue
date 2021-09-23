@@ -9,6 +9,7 @@
         <img src="../assets/imgs/droolingface.png" />
       </div>
     </div>
+    <!-- hello {{icons}} -->
     <!-- <button @click="$store.commit('decrease')">Decrease</button>
     <span>{{counter}}</span>
     <button @click="$store.commit('increase')">Increase</button> -->
@@ -23,13 +24,14 @@
 </template>
 
 <script>
-import { bus } from "../main";
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
+import { icons } from "../views/exportdocs/export.js";
 export default {
   el: "Cart",
   data() {
     return {
       food: "my order food",
+      icons,
     };
   },
   computed: {

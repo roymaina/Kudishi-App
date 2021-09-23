@@ -47,8 +47,7 @@
 </template>
 
 <script>
-/*eslint-disable-next-line*/
-import { bus } from "../main";
+// import { bus } from "../main";
 import { mapState, mapActions} from 'vuex';
 export default {
   data() {
