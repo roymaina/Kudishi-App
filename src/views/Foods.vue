@@ -15,7 +15,7 @@
         </div>
       </div>
       <div id="home-welcome">
-        <p class="welcome-name">Good Evening! Justin</p>
+        <p class="welcome-name">Good Evening! Bruce</p>
         <span id="welcome-main">Grab your</span><br />
         <span id="welcome-sub">delicious meal!</span>
       </div>
