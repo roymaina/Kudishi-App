@@ -72,10 +72,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
-
->>>>>>> 4a235463d56ae7a9adbc8ee8f9cbf34669de9f60
 /*eslint-disable-next-line*/
 import { bus } from "../main";
 export default {

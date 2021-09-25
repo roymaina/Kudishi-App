@@ -19,6 +19,7 @@
         <span>Food Menu</span>
       </div>
       <img class="Cart" @click="gotoCart" src="../assets/imgs/trolley.png" />
+      <span id="countr">{{this.ordered_foods.length}}</span>
     </div>
     <div class="parent">
       <div class="lunchcontents" id="child">
@@ -319,5 +320,17 @@ export default {
 
 .Cart {
   cursor: pointer;
+}
+#countr {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  background: black;
+  color: #f1eeee;
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  font-size: 10px;
+  text-align: center;
 }
 </style>
