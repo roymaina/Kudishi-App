@@ -48,8 +48,8 @@ export default {
 }
 #container{
    /* background-color: #f2bc57; */
-   height: 650px;
-   width: 290px;
+   height: 100%;
+   width: 100%;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
    border-radius: 35px;
    overflow:hidden;
