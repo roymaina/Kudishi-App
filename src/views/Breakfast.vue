@@ -233,7 +233,18 @@ export default {
   color: black;
   background-color: white;
   opacity: 60%;
+  -webkit-animation: mymove 1s forwards;
   animation: mymove 1s forwards;
+}
+@-webkit-keyframes mymove {
+  from {
+    width: 100%;
+    height: 0%;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+  }
 }
 @keyframes mymove {
   from {
