@@ -51,7 +51,7 @@ export default {
    height: 100vh;
    width: 100vw;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-   border-radius: 35px;
+   /* border-radius: 35px; */
    overflow:hidden;
    position: relative;
    background-color: #F1EEEE;
