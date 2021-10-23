@@ -145,26 +145,7 @@ export default {
 </script>
 
 <style scoped>
-@-webkit-keyframes mymove {
-  from {
-    width: 100%;
-    height: 0%;
-  }
-  to {
-    width: 100%;
-    height: 100%;
-  }
-}
-@keyframes mymove {
-  from {
-    width: 100%;
-    height: 0%;
-  }
-  to {
-    width: 100%;
-    height: 100%;
-  }
-}
+
 * {
   font-family: "Poppins";
 }
