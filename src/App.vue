@@ -15,15 +15,6 @@ export default {
 </script>
 
 <style>
-
-#app {
-  font-family: 'Poppins', Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #000;
-  /* margin-top: 60px; */
-}
 @font-face {
   font-family: "Poppins";
   src: local("Poppins"),
@@ -48,6 +39,14 @@ export default {
     width: 100%;
     height: 100%;
   }
+}
+#app {
+  font-family: 'Poppins', Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #000;
+  /* margin-top: 60px; */
 }
 *{
   font-family: "Poppins";

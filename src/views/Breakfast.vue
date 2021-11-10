@@ -234,7 +234,9 @@ export default {
   justify-content: center;
   color: black;
   background-color: white;
-  opacity: 60%;
+  opacity: 65%;
+  width: 100%;
+  height: 100%;
   -webkit-animation: mymove 1s forwards;
   animation: mymove 1s forwards;
 }
