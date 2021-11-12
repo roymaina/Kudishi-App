@@ -100,8 +100,8 @@ export default {
   text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-weight:bold;
   font-size: 150%;
+  /*  */
   margin-left: -5%;
- 
 }
 .FoodnOrder{
   width: 100%;
