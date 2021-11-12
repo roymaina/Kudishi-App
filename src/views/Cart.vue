@@ -67,10 +67,10 @@ export default {
 <style scoped>
 #Cart-container {
   background-color: #f1eeee;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 35px;
+  /* border-radius: 35px; */
   overflow: hidden;
   position: relative;
 }
@@ -104,7 +104,7 @@ export default {
  
 }
 .FoodnOrder{
-  width: 105%;
+  width: 100%;
   height: 89%;
   overflow-y: scroll;
 
