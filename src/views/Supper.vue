@@ -27,7 +27,7 @@
       <div class="lunchcontents" id="child">
         <div
           class="perfood"
-          v-for="(icon, id) in icons"
+          v-for="(icon, id) in Supper"
           :key="id"
           @click="currentFood(icon.name), checkFood()"
         >
@@ -77,68 +77,19 @@
 
 /*eslint-disable-next-line*/
 import { bus } from "../main";
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
-      icons: [
-        {
-          icon: require("@/assets/imgs/githeri.png"),
-          name: "Githeri",
-          price: "Ksh.50",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/chapo.png"),
-          name: "Chapati",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/sukuma.webp"),
-          name: "Veggie",
-          price: "Ksh.5",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/beef.png"),
-          name: "Beef",
-          price: "Ksh.20",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/rice.jpg"),
-          name: "Rice",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/beans.jpg"),
-          name: "Beans",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/ndengu.jpg"),
-          name: "Ndengu",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/kuku.jpg"),
-          name: "Kuku",
-          price: "Ksh.65",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/ugali.webp"),
-          name: "Ugali",
-          price: "Ksh.20",
-          router: " ",
-        },
-      ],
       current_food: null,
       ordered_foods: [],
     };
+  },
+  computed:{
+    ...mapState({ 
+      Supper: (state) => state.Supper,
+    })
   },
   methods: {
     backtoFoods() {
@@ -193,6 +144,14 @@ export default {
       }
     },
   },
+  mounted(){
+    this.current_food_counter = this.ordered_foods
+    .filter(
+      (e)=>{
+        return e['Food'] == this.current_food;
+      }
+    ).map(e=>e.numTimes)[0];
+  }
 };
 </script>
 

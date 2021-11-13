@@ -17,7 +17,13 @@
     <span>{{counter}}</span>
     <button @click="add">Add</button> -->
     <div class="FoodnOrder">
-      <div v-for="(f, i) in ordered_foods" :key="i">{{ f[0] }} {{f[1]}}</div>
+      <div v-for="(food, i) in ordered_foods" :key="i">
+        {{ food.food }} 
+        <span @click="add_order()" class="add">+</span>
+            {{food.times}}
+            <span @click="remove_order" class="remove">-</span>
+         
+        </div>
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
     </div>
   </div>
@@ -27,7 +33,6 @@
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import { icons } from "../views/exportdocs/export.js";
 export default {
-  el: "Cart",
   data() {
     return {
       food: "my order food",
@@ -37,7 +42,12 @@ export default {
   computed: {
     ...mapState({
       counter: (state) => state.counter,
-      ordered_foods: (state) => (state.ordered_foods).map((e)=>{ return [e["Food"], e["numTimes"]]}),
+      ordered_foods: (state) => (state.ordered_foods).map((e)=>{
+         return {
+           'food' : e.Food, 
+           'times' : e.numTimes
+         }
+           }),
     }),
     ...mapGetters(["getCount"]),
   },
@@ -46,9 +56,8 @@ export default {
       add: "increase",
       sub: "decrease",
     }),
-    ...mapActions(["add_action", "sub_action"]),
+    ...mapActions(["add_order", "remove_order"]),
     backtoFoods() {
-      console.log(this.$routes);
       this.$router.go(-1);
     },
   },
@@ -57,10 +66,6 @@ export default {
     //   console.log('Called bus' + dt);
     //   this.food = dt;
     /*eslint-disable-next-line*/
-    bus.$on("my_emitted_name", async (data) => {
-      console.log("Bus now existing:", data);
-    });
-    console.log("Cart Template is mounted");
   },
 };
 </script>
@@ -124,5 +129,19 @@ export default {
   border-radius: 35px;
   text-align-last: justify;
   /* background-color: red; */
+}
+.remove {
+  cursor: pointer;
+  background-color: #000;
+  padding: 2px 5px;
+  color: #fff;
+  border-radius: 3px;
+}
+.add {
+  cursor: pointer;
+  background-color: #000;
+  padding: 2px 5px;
+  color: #fff;
+  border-radius: 3px;
 }
 </style>

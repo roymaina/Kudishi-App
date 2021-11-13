@@ -25,7 +25,7 @@
       <div class="lunchcontents" id="child">
         <div
           class="perfood"
-          v-for="(icon, id) in icons"
+          v-for="(icon, id) in  Breakfast"
           :key="id"
           @click="current_food_action(icon.name), checkFood()"
         >
@@ -35,7 +35,7 @@
             class="myclass"
             v-show="current_food && current_food == icon.name"
           >
-            <div @click="add_order(), show_counter()" class="add">+</div>
+            <div @click="add_order()" class="add">+</div>
             {{ current_food_counter }}
             <div @click="remove_order" class="remove">-</div>
           </div>
@@ -53,70 +53,11 @@ import { mapState, mapActions} from 'vuex';
 export default {
   data() {
     return {
-      icons: [
-        {
-          icon: require("../assets/imgs/Ngwaci.jpg"),
-          name: "Ngwaci",
-          price: "Ksh.20",
-          router: " ",
-        },
-        {
-          icon: require("@/assets/imgs/chapo.png"),
-          name: "Chapati",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("../assets/imgs/Chai.jpg"),
-          name: "Chai",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("../assets/imgs/Boiled-egg.jpg"),
-          name: "Boiled Eggs",
-          price: "Ksh.15",
-          router: " ",
-        },
-        {
-          icon: require("../assets/imgs/mandazi.jpg"),
-          name: "Mandazi",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("../assets/imgs/mkate.jpg"),
-          name: "Loaf",
-          price: "Ksh.10",
-          router: " ",
-        },
-        {
-          icon: require("../assets/imgs/samosa.jpg"),
-          name: "Samosa",
-          price: "Ksh.25",
-          router: " ",
-        },
-        {
-          icon: require("../assets/imgs/smokie.jpg"),
-          name: "Smokie",
-          price: "Ksh.25",
-          router: " ",
-        },
-        {
-          icon: require("../assets/imgs/kahawa.jpg"),
-          name: "Coffee",
-          price: "Ksh.10",
-          router: " ",
-        },
-      ],
       current_food_counter:0,
     };
   },
   methods: {
     ...mapActions(["add_order", "remove_order", "current_food_action"]),
-    show_counter(){
-     console.log(this.$store.state.ordered_foods);
-    },
     backtoFoods() {
       console.log("Food");
       this.$router.push("/Foods");
@@ -136,11 +77,19 @@ export default {
   },
   computed: {
     ...mapState({
-      counter: (state) => state.counter,
       ordered_foods: (state) => state.ordered_foods,
       current_food: (state) => state.current_food,
+      Breakfast: (state) => state.Breakfast,
     }),
   },
+  mounted(){
+    this.current_food_counter = this.ordered_foods
+    .filter(
+      (e)=>{
+        return e['Food'] == this.current_food;
+      }
+    ).map(e=>e.numTimes)[0];
+  }
 };
 </script>
 
