@@ -19,9 +19,9 @@
     <div class="FoodnOrder">
       <div v-for="(food, i) in ordered_foods" :key="i">
         {{ food.food }} 
-        <span @click="add_order()" class="add">+</span>
+        <span @click="current_food_action(food.food), add_order()" class="add">+</span>
             {{food.times}}
-            <span @click="remove_order" class="remove">-</span>
+            <span @click="current_food_action(food.food), remove_order()" class="remove">-</span>
          
         </div>
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
@@ -37,15 +37,17 @@ export default {
     return {
       food: "my order food",
       icons,
+      current_food_counter:0,
     };
   },
   computed: {
     ...mapState({
       counter: (state) => state.counter,
+      current_food: (state) => state.current_food,
       ordered_foods: (state) => (state.ordered_foods).map((e)=>{
          return {
            'food' : e.Food, 
-           'times' : e.numTimes
+           'times' : e.numTimes,
          }
            }),
     }),
@@ -56,16 +58,27 @@ export default {
       add: "increase",
       sub: "decrease",
     }),
-    ...mapActions(["add_order", "remove_order"]),
+    ...mapActions(["add_order", "remove_order", "current_food_action"]),
     backtoFoods() {
       this.$router.go(-1);
     },
+    checkFood() {
+      this.current_food_counter = this.ordered_foods
+      .filter((e) => {
+        return e["Food"] == this.current_food;
+      })
+      .map((e) => {
+        return e['numTimes']
+      })[0]
+    },
   },
   mounted() {
-    // this.emitter.on("changed", (dt) => {
-    //   console.log('Called bus' + dt);
-    //   this.food = dt;
-    /*eslint-disable-next-line*/
+    this.current_food_counter = this.ordered_foods
+    .filter(
+      (e)=>{
+        return e['Food'] == this.current_food;
+      }
+    ).map(e=>e.numTimes)[0];
   },
 };
 </script>

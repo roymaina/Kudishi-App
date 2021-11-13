@@ -29,7 +29,7 @@ const store = new Vuex.Store({
       },
       {
         icon: require("../assets/imgs/Boiled-egg.jpg"),
-        name: "Boiled Eggs",
+        name: "Boiled-Eggs" ,
         price: "Ksh.15",
         router: " ",
       },
@@ -202,6 +202,7 @@ const store = new Vuex.Store({
             state.ordered_foods.splice(i, 1);
           }
         }
+       
       }
     },
     add_order(state) {
@@ -226,6 +227,7 @@ const store = new Vuex.Store({
       commit('decrease', data);
     },
     current_food_action({ commit }, data) {
+      console.log(data);
       commit('current_food', data);
     },
     remove_order({ commit }) {
