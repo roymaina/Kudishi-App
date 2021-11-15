@@ -13,6 +13,7 @@
       <div v-for="(food, i) in ordered_foods" :key="i">
         {{ food.food }}
         <span style="margin: 0px 20px">Ksh.{{ food.price }}</span>
+        <img :src="food.icon" class="cart_image"/>
         <span
           @click="
             current_food_action({ name: food.food, price: food.price }),
@@ -28,13 +29,28 @@
               remove_order()
           "
           class="remove"
-          >-</span
-        >
+          >-</span >
+        <span 
+        @click="
+        current_food_action({name:food.food}),
+        delete_order()
+        "  
+        class="delete"
+        ><img src="../assets/imgs/delete.png" class="deleteimage"></span>
+        <!-- <span class="foodname">{{ food.food }} </span> -->
       </div>
-    </div>
-         <div v-show="ordered_foods.length > 0" class="totalorder">
+      </div>
+      <!-- <div class="foodcontent" v-for="(food, index) in ordered_foods" :key="index"> -->
+        <!-- <span class="foodname">{{ food.food }} </span>
+        <img :src="food.icon" class="cart_image"/> -->
+        <!-- <span @click="current_food_action(food.food), add_order()" class="add">+</span>
+           <span class="count">{{food.times}}</span> 
+            <span @click="current_food_action(food.food), remove_order()" class="remove">-</span> -->
+         <!-- <span @click="current_food_action(food.food), delete_order()"  class="delete"><img src="../assets/imgs/delete.png" ></span> -->
+      <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->         
+      <div v-show="ordered_foods.length > 0" class="totalorder">
         <span>Total order: {{total_order}}</span>
-      </div>
+  </div>
   </div>
 </template>
 
@@ -55,6 +71,7 @@ export default {
       counter: (state) => state.counter,
       current_food: (state) => state.current_food,
       current_price: (state) => state.current_price,
+      current_icon: (state) => state.current_icon,
       total_order: null,
       ordered_foods: (state) =>
         state.ordered_foods.map((e) => {
@@ -62,8 +79,16 @@ export default {
             food: e.Food,
             price: e.price,
             times: e.numTimes,
+            icon : e.icons,
           };
         }),
+      // ordered_foods: (state) => (state.ordered_foods).map((e)=>{
+      //    return {
+      //      'food' : e.Food, 
+      //      'times' : e.numTimes,
+           
+      //    }
+      //      }),
     }),
     ...mapGetters(["getCount"]),
   },
@@ -72,7 +97,7 @@ export default {
       add: "increase",
       sub: "decrease",
     }),
-    ...mapActions(["add_order", "remove_order", "current_food_action"]),
+    ...mapActions(["add_order", "remove_order", "current_food_action","current_food_icon","delete_order"]),
     backtoFoods() {
       this.$router.go(-1);
     },
@@ -146,6 +171,13 @@ export default {
 }
 .FoodnOrder {
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+  
+
+}
+.foodcontent{
+  position: relative;
 }
 
 .FoodnOrder div {
@@ -155,27 +187,67 @@ export default {
   /* border: 1px solid red; */
   margin-bottom: 5%;
   margin-top: 5%;
-  padding-right: 50px;
+  /* padding-right: 50px; */
   padding-left: 5%;
   padding-top: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
-  text-align-last: justify;
+  position: relative;
+  align-items: center;
+  /* text-align-last: justify; */
+  /* display: flex; */
+  justify-content: space-evenly;
   /* background-color: red; */
 }
+.foodname {
+position: absolute;
+top: 25px;
+left: 10px;
+}
+.FoodnOrder span{
+  position: relative;
+}
+
+.cart_image {
+  position: relative;
+  /* display: flex; */
+  /* top: 15px; */
+  /* left: 90px; */
+  width: 50px;
+  height: 50px;
+}
 .remove {
-  cursor: pointer;
+  position: relative;
+  height: 35%;
+  width: 35%;
+  /* cursor: pointer; */
   background-color: #000;
+  /* top: 20px; */
+  /* left: 200px; */
+  margin-left: 70px;
+  margin-right: 70px;
+  position: relative;
   padding: 2px 5px;
   color: #fff;
   border-radius: 3px;
 }
+.count{
+  position: relative;
+  top: 20px;
+  left: 181px;
+}
 .add {
+  height: 35%;
+  width: 35%;
   cursor: pointer;
   background-color: #000;
+  margin-left: 40px;
+  margin-right: 70px;
   padding: 2px 5px;
   color: #fff;
   border-radius: 3px;
+  position:absolute;
+  justify-content: flex-end;
 }
 .totalorder span {
   width: auto;
@@ -190,5 +262,21 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   text-align-last: justify;
+}
+.delete {
+  position: relative;
+  /* top: 20px; */
+  /* left: 220px; */
+  cursor: pointer;
+  margin-left: 5%;
+  
+}
+.deleteimage{
+  position: relative;
+  padding: -2px 300px;
+  /* padding-bottom: -5%; */
+  width: 20px;
+  height: 20px;
+  justify-content: flex-end;
 }
 </style>

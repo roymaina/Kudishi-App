@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     ordered_foods: [],
     current_food: '',
     current_price: '',
+    current_icon: '',
     Breakfast: [
       {
         icon: require("../assets/imgs/Ngwaci.jpg"),
@@ -186,6 +187,7 @@ const store = new Vuex.Store({
       return state.Breakfast.price;
     }
   },
+
   mutations: {
     increase(state, data) {
       state.count += data
@@ -198,6 +200,9 @@ const store = new Vuex.Store({
       state.current_price = food.price;
       console.log(`Invoking ${state.current_food} and ${state.current_price}`);
 
+    },
+    current_icon(state, icon) {
+      state.current_icon = icon;
     },
     remove_order(state) {
       for (let i = 0; i < state.ordered_foods.length; i++) {
@@ -223,9 +228,18 @@ const store = new Vuex.Store({
       state.ordered_foods.push({
         "Food": state.current_food,
         'price': state.current_price,
+        "icons": state.current_icon,
         "numTimes": 1,
       });
     },
+    delete_order(state) {
+      for (let i = 0; i < state.ordered_foods.length; i++) {
+        if (state.ordered_foods[i]["Food"] == state.current_food) {
+          state.ordered_foods[i]["numTimes"] = 0;
+          state.ordered_foods.splice(i, 1);
+        }
+      }
+    }
   },
   actions: {
     add_action({ commit }, data) {
@@ -236,12 +250,20 @@ const store = new Vuex.Store({
     },
     current_food_action({ commit }, data) {
       commit('current_food', data);
+      commit('current_price', data);
+    },
+    current_icon_action({ commit }, icons) {
+      console.log(icons);
+      commit('current_icon', icons);
     },
     remove_order({ commit }) {
       commit('remove_order');
     },
     add_order({ commit }) {
       commit('add_order');
+    },
+    delete_order({ commit }) {
+      commit('delete_order');
     },
   },
 })
