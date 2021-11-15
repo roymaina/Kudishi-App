@@ -27,7 +27,7 @@
           class="perfood"
           v-for="(icon, id) in  Breakfast"
           :key="id"
-          @click="current_food_action(icon.name), checkFood()"
+          @click="current_food_action({'name':icon.name, 'price':icon.price}), checkFood()"
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
@@ -39,8 +39,6 @@
             {{ current_food_counter }}
             <div @click="remove_order" class="remove">-</div>
           </div>
-          <p>Hello</p>
-          <h5>{{ icon.price }}</h5>
         </div>
       </div>
     </div>
@@ -49,7 +47,7 @@
 
 <script>
 // import { bus } from "../main";
-import { mapState, mapActions} from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -72,13 +70,15 @@ export default {
       })
       .map((e) => {
         return e['numTimes']
-      })[0]
+      })[0];
+      console.log("Check food");
     },
   },
   computed: {
     ...mapState({
       ordered_foods: (state) => state.ordered_foods,
       current_food: (state) => state.current_food,
+      current_price: (state) => state.current_price,
       Breakfast: (state) => state.Breakfast,
     }),
   },
@@ -89,7 +89,7 @@ export default {
         return e['Food'] == this.current_food;
       }
     ).map(e=>e.numTimes)[0];
-  }
+  },
 };
 </script>
 

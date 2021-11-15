@@ -9,23 +9,32 @@
         <img src="../assets/imgs/droolingface.png" />
       </div>
     </div>
-    <!-- hello {{icons}} -->
-    <!-- <button @click="$store.commit('decrease')">Decrease</button>
-    <span>{{counter}}</span>
-    <button @click="$store.commit('increase')">Increase</button> -->
-    <!-- <button @click="sub">Subtract</button>
-    <span>{{counter}}</span>
-    <button @click="add">Add</button> -->
     <div class="FoodnOrder">
       <div v-for="(food, i) in ordered_foods" :key="i">
-        {{ food.food }} 
-        <span @click="current_food_action(food.food), add_order()" class="add">+</span>
-            {{food.times}}
-            <span @click="current_food_action(food.food), remove_order()" class="remove">-</span>
-         
-        </div>
-      <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
+        {{ food.food }}
+        <span style="margin: 0px 20px">Ksh.{{ food.price }}</span>
+        <span
+          @click="
+            current_food_action({ name: food.food, price: food.price }),
+              add_order()
+          "
+          class="add"
+          >+</span
+        >
+        {{ food.times }}
+        <span
+          @click="
+            current_food_action({ name: food.food, price: food.price }),
+              remove_order()
+          "
+          class="remove"
+          >-</span
+        >
+      </div>
     </div>
+         <div v-show="ordered_foods.length > 0" class="totalorder">
+        <span>Total order: {{total_order}}</span>
+      </div>
   </div>
 </template>
 
@@ -37,19 +46,24 @@ export default {
     return {
       food: "my order food",
       icons,
-      current_food_counter:0,
+      current_food_counter: 0,
+      total_order: null,
     };
   },
   computed: {
     ...mapState({
       counter: (state) => state.counter,
       current_food: (state) => state.current_food,
-      ordered_foods: (state) => (state.ordered_foods).map((e)=>{
-         return {
-           'food' : e.Food, 
-           'times' : e.numTimes,
-         }
-           }),
+      current_price: (state) => state.current_price,
+      total_order: null,
+      ordered_foods: (state) =>
+        state.ordered_foods.map((e) => {
+          return {
+            food: e.Food,
+            price: e.price,
+            times: e.numTimes,
+          };
+        }),
     }),
     ...mapGetters(["getCount"]),
   },
@@ -64,21 +78,30 @@ export default {
     },
     checkFood() {
       this.current_food_counter = this.ordered_foods
-      .filter((e) => {
-        return e["Food"] == this.current_food;
-      })
-      .map((e) => {
-        return e['numTimes']
-      })[0]
+        .filter((e) => {
+          return e["Food"] == this.current_food;
+        })
+        .map((e) => {
+          return e["numTimes"];
+        })[0];
+    },
+    getTotalOrder() {
+      this.total_order = this.ordered_foods
+        .map((e) => {
+          return e.price * e.times;
+        })
+        .reduce((a, b) => {
+          return a + b;
+        });
     },
   },
   mounted() {
     this.current_food_counter = this.ordered_foods
-    .filter(
-      (e)=>{
-        return e['Food'] == this.current_food;
-      }
-    ).map(e=>e.numTimes)[0];
+      .filter((e) => {
+        return e["Food"] == this.current_food;
+      })
+      .map((e) => e.numTimes)[0];
+    this.getTotalOrder();
   },
 };
 </script>
@@ -114,27 +137,24 @@ export default {
   padding-left: 10px;
 }
 
-#Title{
+#Title {
   text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  font-weight:bold;
+  font-weight: bold;
   font-size: 150%;
   /*  */
   margin-left: -5%;
 }
-.FoodnOrder{
-  width: 100%;
-  height: 89%;
+.FoodnOrder {
   overflow-y: scroll;
-
 }
 
-.FoodnOrder div{
+.FoodnOrder div {
   width: auto;
   height: 70px;
   font-weight: bold;
   /* border: 1px solid red; */
   margin-bottom: 5%;
-  margin-top:5%;
+  margin-top: 5%;
   padding-right: 50px;
   padding-left: 5%;
   padding-top: 10px;
@@ -156,5 +176,19 @@ export default {
   padding: 2px 5px;
   color: #fff;
   border-radius: 3px;
+}
+.totalorder span {
+  width: auto;
+  height: 70px;
+  font-weight: bold;
+  /* border: 1px solid red; */
+  margin-bottom: 5%;
+  margin-top: 5%;
+  padding-right: 50px;
+  padding-left: 5%;
+  padding-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 35px;
+  text-align-last: justify;
 }
 </style>

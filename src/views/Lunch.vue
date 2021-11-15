@@ -67,7 +67,7 @@
 <script>
 /*eslint-disable-next-line*/
 import { bus } from "../main";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -84,6 +84,7 @@ export default {
   },
   methods: {
     ...mapActions(["add_order", "remove_order", "current_food_action"]),
+    ...mapMutations(['menuInit']),
     backtoFoods() {
       this.$router.push("/Foods");
     },
@@ -121,6 +122,7 @@ export default {
         return e["Food"] == this.current_food;
       })
       .map((e) => e.numTimes)[0];
+    this.menuInit("lunch");
   },
 };
 </script>
