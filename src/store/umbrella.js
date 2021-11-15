@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     counter: 0,
     ordered_foods: [],
     current_food: '',
+    current_icon: '',
     Breakfast: [
       {
         icon: require("../assets/imgs/Ngwaci.jpg"),
@@ -193,6 +194,9 @@ const store = new Vuex.Store({
       state.current_food = food;
 
     },
+    current_icon(state, icon) {
+      state.current_icon = icon;
+    },
     remove_order(state) {
       for (let i = 0; i < state.ordered_foods.length; i++) {
         if (state.ordered_foods[i]["Food"] == state.current_food) {
@@ -216,7 +220,16 @@ const store = new Vuex.Store({
       state.ordered_foods.push({
         "Food": state.current_food,
         "numTimes": 1,
+        "icons": state.current_icon,
       });
+    },
+    delete_order(state) {
+      for (let i = 0; i < state.ordered_foods.length; i++) {
+        if (state.ordered_foods[i]["Food"] == state.current_food) {
+          state.ordered_foods[i]["numTimes"] = 0;
+          state.ordered_foods.splice(i, 1);
+        }
+      }
     }
   },
   actions: {
@@ -230,11 +243,18 @@ const store = new Vuex.Store({
       console.log(data);
       commit('current_food', data);
     },
+    current_icon_action({ commit }, icons) {
+      console.log(icons);
+      commit('current_icon', icons);
+    },
     remove_order({ commit }) {
       commit('remove_order');
     },
     add_order({ commit }) {
       commit('add_order');
+    },
+    delete_order({ commit }) {
+      commit('delete_order');
     },
   },
 })

@@ -17,12 +17,13 @@
     <span>{{counter}}</span>
     <button @click="add">Add</button> -->
     <div class="FoodnOrder">
-      <div v-for="(food, i) in ordered_foods" :key="i">
-        {{ food.food }} 
+      <div class="foodcontent" v-for="(food, i) in ordered_foods" :key="i">
+        <span class="foodname">{{ food.food }} </span>
+        <img :src="food.icon" class="cart_image"/>
         <span @click="current_food_action(food.food), add_order()" class="add">+</span>
-            {{food.times}}
+           <span class="count">{{food.times}}</span> 
             <span @click="current_food_action(food.food), remove_order()" class="remove">-</span>
-         
+         <span @click="current_food_action(food.food), delete_order()"  class="delete"><img src="../assets/imgs/delete.png" ></span>
         </div>
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
     </div>
@@ -44,10 +45,12 @@ export default {
     ...mapState({
       counter: (state) => state.counter,
       current_food: (state) => state.current_food,
+      current_icon: (state) => state.current_icon,
       ordered_foods: (state) => (state.ordered_foods).map((e)=>{
          return {
            'food' : e.Food, 
            'times' : e.numTimes,
+           'icon' : e.icons,
          }
            }),
     }),
@@ -58,7 +61,7 @@ export default {
       add: "increase",
       sub: "decrease",
     }),
-    ...mapActions(["add_order", "remove_order", "current_food_action"]),
+    ...mapActions(["add_order", "remove_order", "current_food_action","current_food_icon","delete_order"]),
     backtoFoods() {
       this.$router.go(-1);
     },
@@ -125,7 +128,11 @@ export default {
   width: 100%;
   height: 89%;
   overflow-y: scroll;
+  
 
+}
+.foodcontent{
+  position: relative;
 }
 
 .FoodnOrder div{
@@ -143,18 +150,56 @@ export default {
   text-align-last: justify;
   /* background-color: red; */
 }
+
+.foodname {
+position: absolute;
+top: 25px;
+left: 10px;
+}
+
+.cart_image {
+  position: absolute;
+  top: 15px;
+  left: 90px;
+  width: 50px;
+  height: 50px;
+}
 .remove {
+  position: absolute;
   cursor: pointer;
   background-color: #000;
+  top: 20px;
+  left: 200px;
   padding: 2px 5px;
   color: #fff;
   border-radius: 3px;
 }
+.count{
+  position: absolute;
+  top: 20px;
+  left: 181px;
+}
 .add {
+  position: absolute;
   cursor: pointer;
   background-color: #000;
+  top: 20px;
+  left: 150px;
   padding: 2px 5px;
   color: #fff;
   border-radius: 3px;
+}
+.delete {
+  position: absolute;
+  top: 20px;
+  left: 220px;
+  cursor: pointer;
+  margin-left: 5%;
+  
+}
+.delete img{
+  padding: 2px 5px;
+  width: 20px;
+  height: 20px;
 }
 </style>

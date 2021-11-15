@@ -27,7 +27,7 @@
           class="perfood"
           v-for="(icon, id) in  Breakfast"
           :key="id"
-          @click="current_food_action(icon.name), checkFood()"
+          @click="current_food_action(icon.name), current_icon_action(icon.icon), checkFood()"
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
@@ -57,7 +57,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["add_order", "remove_order", "current_food_action"]),
+    ...mapActions(["add_order", "remove_order", "current_food_action", "current_icon_action"]),
     backtoFoods() {
       console.log("Food");
       this.$router.push("/Foods");
@@ -79,6 +79,7 @@ export default {
     ...mapState({
       ordered_foods: (state) => state.ordered_foods,
       current_food: (state) => state.current_food,
+      current_icon: (state) => state.current_icon,
       Breakfast: (state) => state.Breakfast,
     }),
   },
