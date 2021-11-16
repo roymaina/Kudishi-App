@@ -27,11 +27,7 @@
           class="perfood"
           v-for="(icon, id) in  Breakfast"
           :key="id"
-<<<<<<< HEAD
-          @click="current_food_action({'name':icon.name, 'price':icon.price}), current_icon_action(icon.icon), checkFood()"
-=======
           @click="current_food_action({'name': icon.name, 'price': icon.price}), current_icon_action(icon.icon), checkFood()"
->>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
@@ -84,7 +80,6 @@ export default {
       current_food: (state) => state.current_food,
       current_price: (state) => state.current_price,
       current_icon: (state) => state.current_icon,
-      current_price: (state) => state.current_price,
       Breakfast: (state) => state.Breakfast,
     }),
   },

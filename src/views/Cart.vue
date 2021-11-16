@@ -14,19 +14,6 @@
         {{ food.food }}
         <span style="margin: 0px 20px">Ksh.{{ food.price }}</span>
         <img :src="food.icon" class="cart_image"/>
-<<<<<<< HEAD
-        <span @click="current_food_action({ name: food.food, price: food.price }), add_order()" class="add">+</span>
-           <span class="count">{{food.times}}</span> 
-            <span @click="current_food_action({ name: food.food, price: food.price }), remove_order()" class="remove">-</span>
-         <span @click="current_food_action({name: food.food, price: food.price}), delete_order()"  class="delete"><img src="../assets/imgs/delete.png" ></span>
-         <span class="price" style="margin: 0px 20px">Ksh.{{ food.price }}</span>
-        </div>
-      <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
-    </div>
-    <div v-show="ordered_foods.length > 0" class="totalorder">
-        <span>Total order: {{total_order}}</span>
-      </div>
-=======
         <span
           @click="
             current_food_action({ name: food.food, price: food.price }),
@@ -46,7 +33,7 @@
         <span 
         @click="
         current_food_action({name:food.food}),
-        delete_order()
+        delete_order(), getTotalOrder()
         "  
         class="delete"
         ><img src="../assets/imgs/delete.png" class="deleteimage"></span>
@@ -63,24 +50,21 @@
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->         
       <div v-show="ordered_foods.length > 0" class="totalorder">
         <span>Total order: {{total_order}}</span>
+        <span class="order" @click="postOrder()">Order</span>
   </div>
->>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import { icons } from "../views/exportdocs/export.js";
+import  KudishiService from "../services/kudishi.js";
 export default {
   data() {
     return {
       food: "my order food",
       icons,
-<<<<<<< HEAD
-      current_food_counter:0,
-=======
       current_food_counter: 0,
->>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
       total_order: null,
     };
   },
@@ -90,17 +74,6 @@ export default {
       current_food: (state) => state.current_food,
       current_price: (state) => state.current_price,
       current_icon: (state) => state.current_icon,
-<<<<<<< HEAD
-      current_price: (state) => state.current_price,
-      ordered_foods: (state) => (state.ordered_foods).map((e)=>{
-         return {
-           'food' : e.Food, 
-           'times' : e.numTimes,
-           'icon' : e.icons,
-           'price': e.price,
-         }
-           }),
-=======
       total_order: null,
       ordered_foods: (state) =>
         state.ordered_foods.map((e) => {
@@ -118,7 +91,6 @@ export default {
            
       //    }
       //      }),
->>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
     }),
     ...mapGetters(["getCount"]),
   },
@@ -139,6 +111,18 @@ export default {
         .map((e) => {
           return e["numTimes"];
         })[0];
+    },
+ 
+    postOrder(){
+        KudishiService.create("dishiUser/orders",{"data":this.ordered_foods})
+        .then(response => {
+          this.tutorial.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        })
     },
     getTotalOrder() {
       this.total_order = this.ordered_foods
@@ -328,5 +312,8 @@ left: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   text-align-last: justify;
+}
+.order {
+  cursor: pointer;
 }
 </style>
