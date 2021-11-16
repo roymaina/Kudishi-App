@@ -9,17 +9,12 @@
         <img src="../assets/imgs/droolingface.png" />
       </div>
     </div>
-    <!-- hello {{icons}} -->
-    <!-- <button @click="$store.commit('decrease')">Decrease</button>
-    <span>{{counter}}</span>
-    <button @click="$store.commit('increase')">Increase</button> -->
-    <!-- <button @click="sub">Subtract</button>
-    <span>{{counter}}</span>
-    <button @click="add">Add</button> -->
     <div class="FoodnOrder">
-      <div class="foodcontent" v-for="(food, i) in ordered_foods" :key="i">
-        <span class="foodname">{{ food.food }} </span>
+      <div v-for="(food, i) in ordered_foods" :key="i">
+        {{ food.food }}
+        <span style="margin: 0px 20px">Ksh.{{ food.price }}</span>
         <img :src="food.icon" class="cart_image"/>
+<<<<<<< HEAD
         <span @click="current_food_action({ name: food.food, price: food.price }), add_order()" class="add">+</span>
            <span class="count">{{food.times}}</span> 
             <span @click="current_food_action({ name: food.food, price: food.price }), remove_order()" class="remove">-</span>
@@ -31,6 +26,45 @@
     <div v-show="ordered_foods.length > 0" class="totalorder">
         <span>Total order: {{total_order}}</span>
       </div>
+=======
+        <span
+          @click="
+            current_food_action({ name: food.food, price: food.price }),
+              add_order()
+          "
+          class="add"
+          >+</span
+        >
+        {{ food.times }}
+        <span
+          @click="
+            current_food_action({ name: food.food, price: food.price }),
+              remove_order()
+          "
+          class="remove"
+          >-</span >
+        <span 
+        @click="
+        current_food_action({name:food.food}),
+        delete_order()
+        "  
+        class="delete"
+        ><img src="../assets/imgs/delete.png" class="deleteimage"></span>
+        <!-- <span class="foodname">{{ food.food }} </span> -->
+      </div>
+      </div>
+      <!-- <div class="foodcontent" v-for="(food, index) in ordered_foods" :key="index"> -->
+        <!-- <span class="foodname">{{ food.food }} </span>
+        <img :src="food.icon" class="cart_image"/> -->
+        <!-- <span @click="current_food_action(food.food), add_order()" class="add">+</span>
+           <span class="count">{{food.times}}</span> 
+            <span @click="current_food_action(food.food), remove_order()" class="remove">-</span> -->
+         <!-- <span @click="current_food_action(food.food), delete_order()"  class="delete"><img src="../assets/imgs/delete.png" ></span> -->
+      <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->         
+      <div v-show="ordered_foods.length > 0" class="totalorder">
+        <span>Total order: {{total_order}}</span>
+  </div>
+>>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
   </div>
 </template>
 
@@ -42,7 +76,11 @@ export default {
     return {
       food: "my order food",
       icons,
+<<<<<<< HEAD
       current_food_counter:0,
+=======
+      current_food_counter: 0,
+>>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
       total_order: null,
     };
   },
@@ -50,7 +88,9 @@ export default {
     ...mapState({
       counter: (state) => state.counter,
       current_food: (state) => state.current_food,
+      current_price: (state) => state.current_price,
       current_icon: (state) => state.current_icon,
+<<<<<<< HEAD
       current_price: (state) => state.current_price,
       ordered_foods: (state) => (state.ordered_foods).map((e)=>{
          return {
@@ -60,6 +100,25 @@ export default {
            'price': e.price,
          }
            }),
+=======
+      total_order: null,
+      ordered_foods: (state) =>
+        state.ordered_foods.map((e) => {
+          return {
+            food: e.Food,
+            price: e.price,
+            times: e.numTimes,
+            icon : e.icons,
+          };
+        }),
+      // ordered_foods: (state) => (state.ordered_foods).map((e)=>{
+      //    return {
+      //      'food' : e.Food, 
+      //      'times' : e.numTimes,
+           
+      //    }
+      //      }),
+>>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
     }),
     ...mapGetters(["getCount"]),
   },
@@ -74,21 +133,30 @@ export default {
     },
     checkFood() {
       this.current_food_counter = this.ordered_foods
-      .filter((e) => {
-        return e["Food"] == this.current_food;
-      })
-      .map((e) => {
-        return e['numTimes']
-      })[0]
+        .filter((e) => {
+          return e["Food"] == this.current_food;
+        })
+        .map((e) => {
+          return e["numTimes"];
+        })[0];
+    },
+    getTotalOrder() {
+      this.total_order = this.ordered_foods
+        .map((e) => {
+          return e.price * e.times;
+        })
+        .reduce((a, b) => {
+          return a + b;
+        });
     },
   },
   mounted() {
     this.current_food_counter = this.ordered_foods
-    .filter(
-      (e)=>{
-        return e['Food'] == this.current_food;
-      }
-    ).map(e=>e.numTimes)[0];
+      .filter((e) => {
+        return e["Food"] == this.current_food;
+      })
+      .map((e) => e.numTimes)[0];
+    this.getTotalOrder();
   },
 };
 </script>
@@ -124,17 +192,17 @@ export default {
   padding-left: 10px;
 }
 
-#Title{
+#Title {
   text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  font-weight:bold;
+  font-weight: bold;
   font-size: 150%;
   /*  */
   margin-left: -5%;
 }
-.FoodnOrder{
-  width: 100%;
-  height: 89%;
+.FoodnOrder {
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
   
 
 }
@@ -142,72 +210,104 @@ export default {
   position: relative;
 }
 
-.FoodnOrder div{
+.FoodnOrder div {
   width: auto;
   height: 70px;
   font-weight: bold;
   /* border: 1px solid red; */
   margin-bottom: 5%;
-  margin-top:5%;
+  margin-top: 5%;
+  /* padding-right: 50px; */
+  padding-left: 5%;
+  padding-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 35px;
+  position: relative;
+  align-items: center;
+  /* text-align-last: justify; */
+  /* display: flex; */
+  justify-content: space-evenly;
+  /* background-color: red; */
+}
+.foodname {
+position: absolute;
+top: 25px;
+left: 10px;
+}
+.FoodnOrder span{
+  position: relative;
+}
+
+.cart_image {
+  position: relative;
+  /* display: flex; */
+  /* top: 15px; */
+  /* left: 90px; */
+  width: 50px;
+  height: 50px;
+}
+.remove {
+  position: relative;
+  height: 35%;
+  width: 35%;
+  /* cursor: pointer; */
+  background-color: #000;
+  /* top: 20px; */
+  /* left: 200px; */
+  margin-left: 70px;
+  margin-right: 70px;
+  position: relative;
+  padding: 2px 5px;
+  color: #fff;
+  border-radius: 3px;
+}
+.count{
+  position: relative;
+  top: 20px;
+  left: 181px;
+}
+.add {
+  height: 35%;
+  width: 35%;
+  cursor: pointer;
+  background-color: #000;
+  margin-left: 40px;
+  margin-right: 70px;
+  padding: 2px 5px;
+  color: #fff;
+  border-radius: 3px;
+  position:absolute;
+  justify-content: flex-end;
+}
+.totalorder span {
+  width: auto;
+  height: 70px;
+  font-weight: bold;
+  /* border: 1px solid red; */
+  margin-bottom: 5%;
+  margin-top: 5%;
   padding-right: 50px;
   padding-left: 5%;
   padding-top: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   text-align-last: justify;
-  /* background-color: red; */
-}
-
-.foodname {
-position: absolute;
-top: 25px;
-left: 10px;
-}
-
-.cart_image {
-  position: absolute;
-  top: 15px;
-  left: 90px;
-  width: 50px;
-  height: 50px;
-}
-.remove {
-  position: absolute;
-  cursor: pointer;
-  background-color: #000;
-  top: 20px;
-  left: 200px;
-  padding: 2px 5px;
-  color: #fff;
-  border-radius: 3px;
-}
-.count{
-  position: absolute;
-  top: 20px;
-  left: 181px;
-}
-.add {
-  position: absolute;
-  cursor: pointer;
-  background-color: #000;
-  top: 20px;
-  left: 150px;
-  padding: 2px 5px;
-  color: #fff;
-  border-radius: 3px;
 }
 .delete {
-  position: absolute;
-  top: 20px;
-  left: 220px;
+  position: relative;
+  /* top: 20px; */
+  /* left: 220px; */
   cursor: pointer;
   margin-left: 5%;
   
 }
-.delete img{
-  padding: 2px 5px;
+.deleteimage{
+  position: relative;
+  padding: -2px 300px;
+  /* padding-bottom: -5%; */
   width: 20px;
   height: 20px;
+  justify-content: flex-end;
 }
 
 .price{

@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     counter: 0,
     ordered_foods: [],
     current_food: '',
+    current_price: '',
     current_icon: '',
     current_price: '',
     Breakfast: [
@@ -187,6 +188,7 @@ const store = new Vuex.Store({
       return state.Breakfast.price;
     }
   },
+
   mutations: {
     increase(state, data) {
       state.count += data
@@ -216,6 +218,7 @@ const store = new Vuex.Store({
       }
     },
     add_order(state) {
+      console.log(state.current_food);
       for (let i = 0; i < state.ordered_foods.length; i++) {
         if (state.ordered_foods[i]["Food"] == state.current_food) {
           state.ordered_foods[i]["numTimes"] += 1;
@@ -225,9 +228,13 @@ const store = new Vuex.Store({
       }
       state.ordered_foods.push({
         "Food": state.current_food,
-        "numTimes": 1,
-        "icons": state.current_icon,
         'price': state.current_price,
+        "icons": state.current_icon,
+<<<<<<< HEAD
+        'price': state.current_price,
+=======
+        "numTimes": 1,
+>>>>>>> fdacd034851c0a7b4288ac252d7ef5b3cba82ed5
       });
     },
     delete_order(state) {
@@ -247,8 +254,8 @@ const store = new Vuex.Store({
       commit('decrease', data);
     },
     current_food_action({ commit }, data) {
-      console.log(data);
       commit('current_food', data);
+      commit('current_price', data);
     },
     current_icon_action({ commit }, icons) {
       console.log(icons);
