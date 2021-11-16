@@ -239,6 +239,7 @@ const store = new Vuex.Store({
           state.ordered_foods.splice(i, 1);
         }
       }
+      
     }
   },
   actions: {

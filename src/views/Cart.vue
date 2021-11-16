@@ -33,7 +33,7 @@
         <span 
         @click="
         current_food_action({name:food.food}),
-        delete_order()
+        delete_order(), getTotalOrder()
         "  
         class="delete"
         ><img src="../assets/imgs/delete.png" class="deleteimage"></span>
@@ -169,35 +169,46 @@ export default {
   /*  */
   margin-left: -5%;
 }
-.FoodnOrder {
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column-reverse;
-  
-
-}
 .foodcontent{
   position: relative;
 }
+.FoodnOrder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  /* overflow-y: hidden; */
+
+}
 
 .FoodnOrder div {
-  width: auto;
-  height: 70px;
-  font-weight: bold;
-  /* border: 1px solid red; */
+  height: 100px;
+  width: 97%;
+  border: 1px solid red;
+  position: relative;
   margin-bottom: 5%;
   margin-top: 5%;
-  /* padding-right: 50px; */
+  border-radius: 35px;
+  padding-left: 2%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
+  flex-direction: column;
+  /* width: auto;
+  height: 70px;
+  font-weight: bold;
+  border: 1px solid red;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  padding-right: 50px;
   padding-left: 5%;
   padding-top: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   position: relative;
   align-items: center;
-  /* text-align-last: justify; */
-  /* display: flex; */
+  text-align-last: justify;
+  display: flex;
   justify-content: space-evenly;
-  /* background-color: red; */
+  background-color: red; */
 }
 .foodname {
 position: absolute;
@@ -218,14 +229,14 @@ left: 10px;
 }
 .remove {
   position: relative;
-  height: 35%;
-  width: 35%;
+  height: auto;
+  width: auto;
   /* cursor: pointer; */
   background-color: #000;
   /* top: 20px; */
   /* left: 200px; */
-  margin-left: 70px;
-  margin-right: 70px;
+  /* margin-left: 70px; */
+  /* margin-right: 70px; */
   position: relative;
   padding: 2px 5px;
   color: #fff;
@@ -237,8 +248,8 @@ left: 10px;
   left: 181px;
 }
 .add {
-  height: 35%;
-  width: 35%;
+  height: auto;
+  width: auto;
   cursor: pointer;
   background-color: #000;
   margin-left: 40px;
