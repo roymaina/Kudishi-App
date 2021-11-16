@@ -201,6 +201,7 @@ const store = new Vuex.Store({
       console.log(`Invoking ${state.current_food} and ${state.current_price}`);
 
     },
+    
     current_icon(state, icon) {
       state.current_icon = icon;
     },
@@ -227,7 +228,7 @@ const store = new Vuex.Store({
       }
       state.ordered_foods.push({
         "Food": state.current_food,
-        'price': state.current_price,
+        "price": state.current_price,
         "icons": state.current_icon,
         "numTimes": 1,
       });

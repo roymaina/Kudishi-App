@@ -50,6 +50,7 @@
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->         
       <div v-show="ordered_foods.length > 0" class="totalorder">
         <span>Total order: {{total_order}}</span>
+        <span class="order" @click="postOrder()">Order</span>
   </div>
   </div>
 </template>
@@ -57,6 +58,7 @@
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import { icons } from "../views/exportdocs/export.js";
+import  KudishiService from "../services/kudishi.js";
 export default {
   data() {
     return {
@@ -109,6 +111,18 @@ export default {
         .map((e) => {
           return e["numTimes"];
         })[0];
+    },
+ 
+    postOrder(){
+        KudishiService.create("dishiUser/orders",{"data":this.ordered_foods})
+        .then(response => {
+          this.tutorial.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        })
     },
     getTotalOrder() {
       this.total_order = this.ordered_foods
@@ -289,5 +303,28 @@ left: 10px;
   width: 20px;
   height: 20px;
   justify-content: flex-end;
+}
+
+.price{
+  position: absolute;
+  right: 30px;
+}
+
+.totalorder span {
+  width: auto;
+  height: 70px;
+  font-weight: bold;
+  /* border: 1px solid red; */
+  margin-bottom: 5%;
+  margin-top: 5%;
+  padding-right: 50px;
+  padding-left: 5%;
+  padding-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 35px;
+  text-align-last: justify;
+}
+.order {
+  cursor: pointer;
 }
 </style>
