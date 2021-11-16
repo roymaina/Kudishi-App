@@ -27,7 +27,7 @@
           class="perfood"
           v-for="(icon, id) in  Breakfast"
           :key="id"
-          @click="current_food_action(icon.name), current_icon_action(icon.icon), checkFood()"
+          @click="current_food_action({'name':icon.name, 'price':icon.price}), current_icon_action(icon.icon), checkFood()"
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
@@ -72,7 +72,8 @@ export default {
       })
       .map((e) => {
         return e['numTimes']
-      })[0]
+      })[0];
+      console.log("Check food");
     },
   },
   computed: {
@@ -80,6 +81,7 @@ export default {
       ordered_foods: (state) => state.ordered_foods,
       current_food: (state) => state.current_food,
       current_icon: (state) => state.current_icon,
+      current_price: (state) => state.current_price,
       Breakfast: (state) => state.Breakfast,
     }),
   },
@@ -90,7 +92,7 @@ export default {
         return e['Food'] == this.current_food;
       }
     ).map(e=>e.numTimes)[0];
-  }
+  },
 };
 </script>
 

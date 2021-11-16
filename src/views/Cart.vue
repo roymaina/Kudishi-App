@@ -20,13 +20,17 @@
       <div class="foodcontent" v-for="(food, i) in ordered_foods" :key="i">
         <span class="foodname">{{ food.food }} </span>
         <img :src="food.icon" class="cart_image"/>
-        <span @click="current_food_action(food.food), add_order()" class="add">+</span>
+        <span @click="current_food_action({ name: food.food, price: food.price }), add_order()" class="add">+</span>
            <span class="count">{{food.times}}</span> 
-            <span @click="current_food_action(food.food), remove_order()" class="remove">-</span>
-         <span @click="current_food_action(food.food), delete_order()"  class="delete"><img src="../assets/imgs/delete.png" ></span>
+            <span @click="current_food_action({ name: food.food, price: food.price }), remove_order()" class="remove">-</span>
+         <span @click="current_food_action({name: food.food, price: food.price}), delete_order()"  class="delete"><img src="../assets/imgs/delete.png" ></span>
+         <span class="price" style="margin: 0px 20px">Ksh.{{ food.price }}</span>
         </div>
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->
     </div>
+    <div v-show="ordered_foods.length > 0" class="totalorder">
+        <span>Total order: {{total_order}}</span>
+      </div>
   </div>
 </template>
 
@@ -39,6 +43,7 @@ export default {
       food: "my order food",
       icons,
       current_food_counter:0,
+      total_order: null,
     };
   },
   computed: {
@@ -46,11 +51,13 @@ export default {
       counter: (state) => state.counter,
       current_food: (state) => state.current_food,
       current_icon: (state) => state.current_icon,
+      current_price: (state) => state.current_price,
       ordered_foods: (state) => (state.ordered_foods).map((e)=>{
          return {
            'food' : e.Food, 
            'times' : e.numTimes,
            'icon' : e.icons,
+           'price': e.price,
          }
            }),
     }),
@@ -201,5 +208,25 @@ left: 10px;
   padding: 2px 5px;
   width: 20px;
   height: 20px;
+}
+
+.price{
+  position: absolute;
+  right: 30px;
+}
+
+.totalorder span {
+  width: auto;
+  height: 70px;
+  font-weight: bold;
+  /* border: 1px solid red; */
+  margin-bottom: 5%;
+  margin-top: 5%;
+  padding-right: 50px;
+  padding-left: 5%;
+  padding-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 35px;
+  text-align-last: justify;
 }
 </style>
