@@ -20,7 +20,7 @@ export default {
   src: local("Poppins"),
    url(./assets/fonts/Poppins-Medium.ttf) format("truetype");
 }
-/* @-webkit-keyframes mymove {
+@-webkit-keyframes mymove {
   from {
     width: 100%;
     height: 0%;
@@ -39,7 +39,7 @@ export default {
     width: 100%;
     height: 100%;
   }
-} */
+}
 #app {
   font-family: 'Poppins', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
