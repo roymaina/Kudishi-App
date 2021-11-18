@@ -188,9 +188,30 @@ export default {
   width: 100%;
   height: 100%;
   -webkit-animation: mymove 1s forwards;
+  @keyframes: mymove;
   animation: mymove 1s forwards;
 }
 
+@-webkit-keyframes mymove {
+  from {
+    width: 100%;
+    height: 0%;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+  }
+}
+@keyframes mymove {
+  from {
+    width: 100%;
+    height: 0%;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+  }
+}
 
 .remove {
   cursor: pointer;
