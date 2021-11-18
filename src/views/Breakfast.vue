@@ -186,7 +186,7 @@ export default {
   justify-content: center;
   color: black;
   background-color: white;
-  
+  opacity: 0.7;
   width: 100%;
   height: 100%;
 }
