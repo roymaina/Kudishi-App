@@ -47,9 +47,9 @@
       
         <!-- <span class="foodname">{{ food.food }} </span> -->
       </div>
-      <div v-show="ordered_foods.length > 0" class="totalorder">
-        <span>Total order: {{total_order}}</span>
-        <span class="order" @click="postOrder()">Order</span>
+      <div v-show="ordered_foods.length > 0" class="pricenOrder">
+        <span class="total_Price">Total:  <span id="total"> Ksh {{total_order}}</span></span>
+        <button class="order" @click="postOrder()">Place Order</button>
   </div>
       </div>
       <!-- <div class="foodcontent" v-for="(food, index) in ordered_foods" :key="index"> -->
@@ -207,8 +207,8 @@ export default {
   margin-left: 8%;
   display: inline-flex;
   position: relative;
-  margin-bottom: 5%;
-  margin-top: 5%;
+  margin-bottom: 2%;
+  margin-top: 2%;
   border-radius: 5%;
   /* border-radius: 35px; */
   padding-left: 0%;
@@ -286,11 +286,11 @@ padding-left: 20px;
   border-radius: 50%;
  
 }
-.totalorder span {
+/* .totalorder span {
   width: auto;
   height: 70px;
   font-weight: bold;
-  /* border: 1px solid red; */
+  border: 1px solid red;
   margin-bottom: 5%;
   margin-top: 5%;
   padding-right: 50px;
@@ -299,7 +299,7 @@ padding-left: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   text-align-last: justify;
-}
+} */
 .delete {
   cursor: pointer;
   margin-left: 20%;
@@ -315,21 +315,31 @@ padding-left: 20px;
   margin-bottom: 5px;
 }
 
-.totalorder span {
-  width: auto;
+.pricenOrder {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
   height: 70px;
-  font-weight: bold;
-  /* border: 1px solid red; */
   margin-bottom: 5%;
-  margin-top: 5%;
+  margin-top: 1%;
   padding-right: 50px;
   padding-left: 5%;
   padding-top: 10px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 35px;
-  text-align-last: justify;
+}
+.total_Price {
+  text-align: center;
+  font-weight: bold;
+  margin-left: 35%;
+}
+#total {
+  margin-left: 10%;
+  word-spacing: 8px;
+  font-weight: normal;
 }
 .order {
   cursor: pointer;
+  width: 150px;
+  margin-top: 10px;
+  margin-left: 30%;
 }
 </style>

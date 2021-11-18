@@ -29,7 +29,7 @@
           class="perfood"
           v-for="(icon, id) in Lunch"
           :key="id"
-          @click="current_food_action(icon.name),current_icon_action(icon.icon), checkFood()"
+          @click="current_food_action({'name': icon.name, 'price': icon.price}),current_icon_action(icon.icon), checkFood()"
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
