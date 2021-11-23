@@ -39,6 +39,7 @@
             {{ current_food_counter }}
             <div @click="remove_order" class="remove">-</div>
           </div>
+          <h5>Ksh.{{icon.price}}</h5>
         </div>
       </div>
     </div>
@@ -174,6 +175,9 @@ export default {
   height: 0;
   padding-top: 46.64%;
   /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+}
+.perfood h5{
+  padding-top: 60px;
 }
 .myclass {
   -webkit-animation: mymove 1s forwards;

@@ -122,7 +122,7 @@ export default {
     },
  
     postOrder(){
-        KudishiService.create("dishiUser/orders",{"student_id":"ENG-219-270-2016","data":this.ordered_foods})
+        KudishiService.create("dishiUser/orders",{"student_id":"Admission_Number","data":this.ordered_foods})
         .then(response => {
           this.tutorial.id = response.data.id;
           console.log(response.data);
