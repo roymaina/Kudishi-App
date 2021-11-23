@@ -15,7 +15,8 @@
         </div>
       </div>
       <div id="home-welcome">
-        <p class="welcome-name">Good Evening! Bruce</p>
+        
+        <p class="welcome-name">Good Evening! {{student_id}}</p>
         <span id="welcome-main">Grab your</span><br />
         <span id="welcome-sub">delicious meal!</span>
       </div>
@@ -78,6 +79,8 @@
 </template>
 
 <script>
+
+import {mapState} from 'vuex';
 export default  {
   data() {
     return {
@@ -140,6 +143,11 @@ export default  {
       toggleIcons: true,
     };
       
+  },
+  computed:{
+    ...mapState({
+      student_id: state => state.student_id,
+    }),
   },
   methods: {
     gotoRoute(arg) {

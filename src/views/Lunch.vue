@@ -209,7 +209,7 @@ export default {
   /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
 }
 .perfood h5{
-  padding-top: 60px;
+  padding-top: 90px;
 }
 .myclass {
   position: absolute;

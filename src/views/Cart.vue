@@ -122,7 +122,7 @@ export default {
     },
  
     postOrder(){
-        KudishiService.create("dishiUser/orders",{"student_id":"Admission_Number","data":this.ordered_foods})
+        KudishiService.create("dishiUser/orders",{"studentid":this.studentid,"data":this.ordered_foods})
         .then(response => {
           this.tutorial.id = response.data.id;
           console.log(response.data);
@@ -195,9 +195,10 @@ export default {
   position: relative;
 } */
 .FoodnOrder {
-   width: 100%;
+  width: 100%;
   height: 89%;
   overflow-y: scroll;
+  border-radius: 15px;
 
 }
 
@@ -240,15 +241,14 @@ export default {
   /* display: flex; */
   /* top: 15px; */
   /* left: 90px; */
-  width: 30%;
-  
-  
+  width: 35%;
   align-items: center;
 }
 .cart_image_flex img {
-  width: 100%;
+  width: 120%;
   height: 100%;
   border-radius: 5%;
+  padding-right: 85px;
   
 }
 .second_Flex {
@@ -269,7 +269,6 @@ padding-left: 20px;
 }
 
 .remove {
-  
   cursor: pointer;
   background-color: #000;
   margin-left: 5px;

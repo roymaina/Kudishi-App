@@ -1,7 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 
 Vue.use(Vuex)
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage
+})
+
 
 const store = new Vuex.Store({
   state: {
@@ -10,6 +16,7 @@ const store = new Vuex.Store({
     current_food: '',
     current_price: '',
     current_icon: '',
+    student_id:"",
     Breakfast: [
       {
         icon: require("../assets/imgs/Ngwaci.jpg"),
@@ -189,6 +196,10 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    set_student_id(state, data){
+      state.student_id = data;
+      console.log(`Student ${data} set`);
+    },
     increase(state, data) {
       state.count += data
     },
@@ -242,6 +253,7 @@ const store = new Vuex.Store({
       }
       
     }
+
   },
   actions: {
     add_action({ commit }, data) {
@@ -267,7 +279,11 @@ const store = new Vuex.Store({
     delete_order({ commit }) {
       commit('delete_order');
     },
+    set_student_id({ commit }, data){
+      commit('set_student_id', data);
+    }
   },
+  plugins: [vuexLocal.plugin]
 })
 
 export default store;

@@ -8,42 +8,72 @@
           <span>Karibu Kudishi where quality meets quantity</span>
       </div>
       <div>
+        <form class="wrapper" @submit.prevent="gotoFoods">
           <div class="Adm" >
+             
           <input style="border-radius:15px; height:30px; width: 200px; padding-left:5px; padding-bottom:5px; "
+            id="amdissionno"
+            name="adm"
             type="text"
+            v-model="studentid"
             placeholder="Admission Number"
+            required
           />
+         
         </div>
         <div class="Pass" >
           <input style="border-radius:15px; height:30px; width: 200px; padding-left:5px; padding-bottom:5px; margin-top:5px; margin-bottom:10px;"
+            id="passwordno"
+            name="password"
             type="text"
             placeholder="Password"
+            required
           />
         </div>
+        <div >
+          <input type="submit" id="Logincred" style="background-color:black; color:white; width:100px; height:50px; border-radius:15px;"> 
       </div>
-      <div>
-      <div class="login"
-      @click="gotoFoods">
-          <span>LogIn</span> 
-      </div>
-      </div>
+      </form>
+        </div>
     </div>
+
 </template>
+
 <script>
 
+// let wrapper = document.querySelector(".wrapper"),
+//     form = wrapper.querySelectorAll(".form"),
+//     submitInput = form[0].querySelector("input[type='submit']");
 
+// function getDataForm(e){
+//     e.preventDefault();
+//     var FormData = new FormData(form[0]);
+//     alert( FormData.get('admissionno') + ' - '+ FormData.get('passwordno'));
+// }
+
+// document.addEventListener('DOMContentLoaded' , function(){
+//     submitInput.addEventListener('click' , getDataForm, false);
+// }, false);
+
+// import  KudishiService from "../ services/kudishi.js";
+import { mapActions } from 'vuex';
 export default {
    name:'Home',
-   components:{
-
+   components:{  
+ 
    },
+   
    data(){
        return{
+         studentid:null,
 
        }
    },    
    methods:{
+       ...mapActions(['set_student_id']),
        gotoFoods(){
+           this.set_student_id(this.studentid);
+        //    KudishiService.create("dishiUser/orders",{"studentid":this.studentid})
            console.log('Foods');
            this.$router.push("/Foods");
        }
@@ -114,7 +144,7 @@ export default {
       margin-bottom: 20px;
   }
   
-  .login{
+  /* .login{
       height: 40px;
       width: 90px;
       color: #fff;
@@ -129,5 +159,5 @@ export default {
       outline: none;
       cursor: pointer;
       padding-bottom: 5px;
-  }
+  } */
 </style>
