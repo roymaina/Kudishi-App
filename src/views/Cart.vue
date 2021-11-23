@@ -245,6 +245,7 @@ left: 10px;
   position: relative;
   height: auto;
   width: auto;
+  cursor:pointer;
   /* cursor: pointer; */
   background-color: #000;
   /* top: 20px; */

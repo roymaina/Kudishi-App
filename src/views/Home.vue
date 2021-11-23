@@ -7,9 +7,11 @@
           <h3>Freshness in every bite</h3>
           <span>Karibu Kudishi where quality meets quantity</span>
       </div>
+      <div>
       <div class="login"
       @click="gotoFoods">
-          <span>LogIn</span>  
+          <span>LogIn</span> 
+      </div>
       </div>
     </div>
 </template>
@@ -99,8 +101,8 @@ export default {
   }
   
   .login{
-      height: 45px;
-      width: 45%;
+      height: 40px;
+      width: 90px;
       color: #fff;
       background-color: #000;
       border-radius: 15px;
@@ -112,6 +114,6 @@ export default {
       border:none; 
       outline: none;
       cursor: pointer;
+      padding-bottom: 5px;
   }
-  
 </style>
