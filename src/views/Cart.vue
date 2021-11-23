@@ -10,10 +10,12 @@
       </div>
     </div>
     <div class="FoodnOrder">
-      <div v-for="(food, i) in ordered_foods" :key="i">
-        {{ food.food }}
-        <span style="margin: 0px 20px">Ksh.{{ food.price }}</span>
-        <img :src="food.icon" class="cart_image"/>
+      <div class="foodcontent"  v-for="(food, i) in ordered_foods" :key="i">
+        <div class="cart_image_flex"> <img :src="food.icon" /> </div>
+       <div class="second_Flex">
+        <div class="foodname"> {{ food.food }} </div>
+        <span class="price">Ksh.{{ food.price }}</span>
+        <div>
         <span
           @click="
             current_food_action({ name: food.food, price: food.price }),
@@ -22,7 +24,7 @@
           class="add"
           >+</span
         >
-        {{ food.times }}
+       <span class="counter">{{ food.times }}</span> 
         <span
           @click="
             current_food_action({ name: food.food, price: food.price }),
@@ -30,15 +32,25 @@
           "
           class="remove"
           >-</span >
-        <span 
+         <span 
         @click="
         current_food_action({name:food.food}),
         delete_order(), getTotalOrder()
         "  
         class="delete"
-        ><img src="../assets/imgs/delete.png" class="deleteimage"></span>
+        ><img src="../assets/imgs/delete.png" class="deleteimage">
+        Remove</span> 
+          
+        </div>
+        
+       </div>
+      
         <!-- <span class="foodname">{{ food.food }} </span> -->
       </div>
+      <div v-show="ordered_foods.length > 0" class="pricenOrder">
+        <span class="total_Price">Total:  <span id="total"> Ksh {{total_order}}</span></span>
+        <button class="order" @click="postOrder()">Place Order</button>
+  </div>
       </div>
       <!-- <div class="foodcontent" v-for="(food, index) in ordered_foods" :key="index"> -->
         <!-- <span class="foodname">{{ food.food }} </span>
@@ -48,10 +60,6 @@
             <span @click="current_food_action(food.food), remove_order()" class="remove">-</span> -->
          <!-- <span @click="current_food_action(food.food), delete_order()"  class="delete"><img src="../assets/imgs/delete.png" ></span> -->
       <!-- <span id="Numberoftimes" v-for="(n, x) in  ordered_foods" :key="x">{{ x }}</span> -->         
-      <div v-show="ordered_foods.length > 0" class="totalorder">
-        <span>Total order: {{total_order}}</span>
-        <span class="order" @click="postOrder()">Order</span>
-  </div>
   </div>
 </template>
 
@@ -183,29 +191,28 @@ export default {
   /*  */
   margin-left: -5%;
 }
-.foodcontent{
+/* .foodcontent{
   position: relative;
-}
+} */
 .FoodnOrder {
-  position: relative;
-  display: flex;
-  flex-direction: column;
+   width: 100%;
+  height: 89%;
   overflow-y: scroll;
-  /* overflow-y: hidden; */
 
 }
 
-.FoodnOrder div {
+.foodcontent {
   height: 100px;
-  width: 97%;
-  border: 1px solid red;
+  width: 80%;
+  margin-left: 8%;
+  display: inline-flex;
   position: relative;
-  margin-bottom: 5%;
-  margin-top: 5%;
-  border-radius: 35px;
-  padding-left: 2%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  border-radius: 5%;
+  /* border-radius: 35px; */
+  padding-left: 0%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
-  flex-direction: column;
   /* width: auto;
   height: 70px;
   font-weight: bold;
@@ -224,62 +231,70 @@ export default {
   justify-content: space-evenly;
   background-color: red; */
 }
-.foodname {
-position: absolute;
-top: 25px;
-left: 10px;
-}
-.FoodnOrder span{
-  position: relative;
+.top_Part {
+  display: inline-flex;
+  width: 100%;
 }
 
-.cart_image {
-  position: relative;
+.cart_image_flex {
   /* display: flex; */
   /* top: 15px; */
   /* left: 90px; */
-  width: 50px;
-  height: 50px;
+  width: 30%;
+  
+  
+  align-items: center;
 }
-.remove {
+.cart_image_flex img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  
+}
+.second_Flex {
+display: flex;
+flex-direction: column;
+width: 100%;
+padding-left: 20px;
+}
+.foodname{
+  margin-bottom: 5px;
+}
+.FoodnOrder span{
   position: relative;
   height: auto;
   width: auto;
   cursor:pointer;
   /* cursor: pointer; */
+}
+
+.remove {
+  
+  cursor: pointer;
   background-color: #000;
-  /* top: 20px; */
-  /* left: 200px; */
-  /* margin-left: 70px; */
-  /* margin-right: 70px; */
-  position: relative;
+  margin-left: 5px;
   padding: 2px 5px;
   color: #fff;
-  border-radius: 3px;
+  border-radius: 50%;
 }
 .count{
-  position: relative;
   top: 20px;
   left: 181px;
 }
 .add {
-  height: auto;
-  width: auto;
   cursor: pointer;
   background-color: #000;
-  margin-left: 40px;
-  margin-right: 70px;
+  margin-right: 5px; ;
   padding: 2px 5px;
   color: #fff;
-  border-radius: 3px;
-  position:absolute;
-  justify-content: flex-end;
+  border-radius: 50%;
+ 
 }
-.totalorder span {
+/* .totalorder span {
   width: auto;
   height: 70px;
   font-weight: bold;
-  /* border: 1px solid red; */
+  border: 1px solid red;
   margin-bottom: 5%;
   margin-top: 5%;
   padding-right: 50px;
@@ -288,44 +303,47 @@ left: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   text-align-last: justify;
-}
+} */
 .delete {
-  position: relative;
-  /* top: 20px; */
-  /* left: 220px; */
   cursor: pointer;
-  margin-left: 5%;
+  margin-left: 20%;
   
 }
 .deleteimage{
-  position: relative;
-  padding: -2px 300px;
-  /* padding-bottom: -5%; */
   width: 20px;
   height: 20px;
-  justify-content: flex-end;
+  
 }
 
 .price{
-  position: absolute;
-  right: 30px;
+  margin-bottom: 5px;
 }
 
-.totalorder span {
-  width: auto;
+.pricenOrder {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
   height: 70px;
-  font-weight: bold;
-  /* border: 1px solid red; */
   margin-bottom: 5%;
-  margin-top: 5%;
+  margin-top: 1%;
   padding-right: 50px;
   padding-left: 5%;
   padding-top: 10px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 35px;
-  text-align-last: justify;
+}
+.total_Price {
+  text-align: center;
+  font-weight: bold;
+  margin-left: 35%;
+}
+#total {
+  margin-left: 10%;
+  word-spacing: 8px;
+  font-weight: normal;
 }
 .order {
   cursor: pointer;
+  width: 150px;
+  margin-top: 10px;
+  margin-left: 30%;
 }
 </style>

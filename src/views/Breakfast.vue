@@ -176,6 +176,8 @@ export default {
   /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
 }
 .myclass {
+  -webkit-animation: mymove 1s forwards;
+  animation: mymove 1s forwards;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -184,13 +186,31 @@ export default {
   justify-content: center;
   color: black;
   background-color: white;
-  opacity: 65%;
+  opacity: 0.7;
   width: 100%;
   height: 100%;
-  -webkit-animation: mymove 1s forwards;
-  animation: mymove 1s forwards;
 }
 
+@-webkit-keyframes mymove {
+  from {
+    width: 100%;
+    height: 0%;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+  }
+}
+@keyframes mymove {
+  from {
+    width: 100%;
+    height: 0%;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+  }
+}
 
 .remove {
   cursor: pointer;

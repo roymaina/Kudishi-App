@@ -29,7 +29,7 @@
           class="perfood"
           v-for="(icon, id) in Lunch"
           :key="id"
-          @click="current_food_action(icon.name),current_icon_action(icon.icon), checkFood()"
+          @click="current_food_action({'name': icon.name, 'price': icon.price}),current_icon_action(icon.icon), checkFood()"
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
@@ -217,7 +217,7 @@ export default {
   justify-content: center;
   color: black;
   background-color: white;
-  opacity: 65%;
+  opacity: 0.7;
   /* width: 100%; */
  /* height: 100%; */
   /* -webkit-animation: mymove 1s forwards; */

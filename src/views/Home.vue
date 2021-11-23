@@ -8,6 +8,20 @@
           <span>Karibu Kudishi where quality meets quantity</span>
       </div>
       <div>
+          <div class="Adm" >
+          <input style="border-radius:15px; height:30px; width: 200px; padding-left:5px; padding-bottom:5px; "
+            type="text"
+            placeholder="Admission Number"
+          />
+        </div>
+        <div class="Pass" >
+          <input style="border-radius:15px; height:30px; width: 200px; padding-left:5px; padding-bottom:5px; margin-top:5px; margin-bottom:10px;"
+            type="text"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <div>
       <div class="login"
       @click="gotoFoods">
           <span>LogIn</span> 

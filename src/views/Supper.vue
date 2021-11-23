@@ -245,7 +245,7 @@ export default {
   justify-content: center;
   color: black;
   background-color: white;
-  opacity: 60%;
+  opacity: 0.7;
   animation: mymove 1s forwards;
 }
 @keyframes mymove{
