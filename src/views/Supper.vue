@@ -1,4 +1,3 @@
-// Copied from Lunch
 <template>
   <div class="lunch-container">
     <div id="back" @click="backtoFoods">
@@ -7,8 +6,8 @@
     <div class="lunch-header">
       <div class="lunchtext">
         <h1>
-          Dinner is
-          served...
+          Dinner
+          is served, welcome 
         </h1>
       </div>
       <div class="lunchimg">
@@ -20,34 +19,27 @@
         <span>Food Menu</span>
       </div>
       <div class="Cart" @click="gotoCart">
-      <img src="../assets/imgs/trolley.png" />
+        <img src="../assets/imgs/trolley.png" />
+        <span id="countr">{{this.ordered_foods.length}}</span>
       </div>
     </div>
     <div class="parent">
       <div class="lunchcontents" id="child">
         <div
           class="perfood"
-          v-for="(icon, id) in Supper"
+          v-for="(icon, id) in Lunch"
           :key="id"
-          @click="currentFood(icon.name), checkFood()"
+          @click="current_food_action({'name': icon.name, 'price': icon.price}),current_icon_action(icon.icon), checkFood()"
         >
           <img :src="icon.icon" class="pricename" />
           <span>{{ icon.name }}</span>
-          <div class="myclass"
-          v-show="current_food && current_food==icon.name">
-            <div
-              @click="removeOrder"
-              class = "remove"
-            >
-              +
-            </div>
-            {{ current_food }}
-            <div
-              @click="addOrder"
-              class = "add"
-            >
-              -
-            </div>
+          <div
+            class="myclass"
+            v-show="current_food && current_food == icon.name"
+          >
+            <div @click="add_order()" class="add">+</div>
+            {{ current_food_counter }}
+            <div @click="removeOrder" class="remove">-</div>
           </div>
           <p>Hello</p>
           <h5>{{ icon.price }}</h5>
@@ -73,32 +65,32 @@
 </template>
 
 <script>
-
-
 /*eslint-disable-next-line*/
 import { bus } from "../main";
-import { mapState, mapMutations } from 'vuex';
-
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      current_food: null,
-      ordered_foods: [],
+      current_food_counter: 0,
     };
   },
-  computed:{
-    ...mapState({ 
-      Supper: (state) => state.Supper,
-    })
+  computed: {
+    ...mapState({
+      Lunch: (state) => state.Lunch,
+      counter: (state) => state.counter,
+      ordered_foods: (state) => state.ordered_foods,
+      current_food: (state) => state.current_food,
+      current_icon: (state) => state.current_icon,
+    }),
   },
   methods: {
+    ...mapActions(["add_order", "remove_order", "current_food_action"]),
     ...mapMutations(['menuInit']),
+    ...mapActions(["add_order", "remove_order", "current_food_action", "current_icon_action"]),
     backtoFoods() {
-      console.log("Food");
       this.$router.push("/Foods");
     },
     gotoCart() {
-      console.log("Cart");
       this.$router.push("/Cart");
     },
     currentFood(name) {
@@ -108,58 +100,38 @@ export default {
       for (let i = 0; i < this.ordered_foods.length; i++) {
         if (this.ordered_foods[i]["Food"] == this.current_food) {
           this.ordered_foods[i]["numTimes"] -= 1;
+          // this.counter--;
           // return;
           if (this.ordered_foods[i]["numTimes"] < 1) {
             this.ordered_foods.splice(i, 1);
           }
         }
       }
-      console.log(this.ordered_foods);
-    },
-    addOrder() {
-      for (let i = 0; i < this.ordered_foods.length; i++) {
-        if (this.ordered_foods[i]["Food"] == this.current_food) {
-          this.ordered_foods[i]["numTimes"] += 1;
-          console.log(this.ordered_foods);
-          return;
-        }
-      }
-      this.ordered_foods.push({
-        Food: this.current_food,
-        numTimes: 1,
-      });
-      console.log(this.ordered_foods);
-      // console.log(this.ordered_foods);
     },
     checkFood() {
-      let checked = this.ordered_foods.filter((e) => {
+      this.current_food_counter = this.ordered_foods
+      .filter((e) => {
         return e["Food"] == this.current_food;
-      });
-      console.log(checked);
-      if (checked == undefined) {
-        console.log(true);
-        return true;
-      } else {
-        console.log(false);
-        return false;
-      }
+      })
+      .map((e) => {
+        return e['numTimes']
+      })[0]
     },
   },
-  mounted(){
+  mounted() {
     this.current_food_counter = this.ordered_foods
-    .filter(
-      (e)=>{
-        return e['Food'] == this.current_food;
-      }
-    ).map(e=>e.numTimes)[0];
-    this.menuInit("supper");
-  }
+      .filter((e) => {
+        return e["Food"] == this.current_food;
+      })
+      .map((e) => e.numTimes)[0];
+    this.menuInit("lunch");
+  },
 };
 </script>
 
 <style scoped>
-*{
-  font-family: 'Poppins';
+* {
+  font-family: "Poppins";
 }
 .lunch-container {
   background-color: #f1eeee;
@@ -192,6 +164,12 @@ export default {
   text-align-last: justify;
 }
 .lunchtext h1 {
+  margin-left: 8px;
+  color: #000;
+  justify-content: left;
+  justify-items: left;
+}
+.lunchtext h2 {
   margin-left: 8px;
   color: #000;
   justify-content: left;
@@ -246,11 +224,10 @@ export default {
   color: black;
   background-color: white;
   opacity: 0.7;
+  /* width: 100%; */
+ /* height: 100%; */
+  /* -webkit-animation: mymove 1s forwards; */
   animation: mymove 1s forwards;
-}
-@keyframes mymove{
-  from {width: 100%; height: 0%;}
-  to {width: 100%; height: 100%;}
 }
 
 .remove {
@@ -319,12 +296,24 @@ export default {
   float: right;
   padding: 20px;
 }
-#foodmenu{
+#foodmenu {
   font-weight: bold;
-  text-shadow: rgba(0, 0, 0, 0.24)0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.Cart{
+.Cart {
   cursor: pointer;
+}
+#countr {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  background: black;
+  color: #f1eeee;
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  font-size: 10px;
+  text-align: center;
 }
 </style>
