@@ -94,8 +94,8 @@ export default {
 }
 #container{
    /* background-color: #f2bc57; */
-   height: 100vh;
-   width: 100vw;
+   height: 45px;
+   width: 45px;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
    /* border-radius: 35px; */
    overflow:hidden;
