@@ -40,7 +40,7 @@
           v-for="(icon, index) in icons"
           :key="index"
           class="parent-abs"
-          @click="gotoRoute(icon.router)"
+          @click="gotorouted(icon.router)"
           @mouseover="icon.isHovering = true"
           @mouseout="icon.isHovering = false"
         >
@@ -169,8 +169,8 @@ export default  {
   /* background: url("../assets/imgs/background.jpeg") no-repeat center; */
   /* background-size: cover; */
   background-color: #f1eeee;
-  height: 90vh;
-  width: 20vw;
+  height: auto;
+  width: auto;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   overflow: hidden;

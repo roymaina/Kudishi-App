@@ -103,8 +103,8 @@ export default {
 
 .lunch-container {
   background-color: #f1eeee;
-  height: 90vh;
-  width: 20vw;
+  height: 100%;
+  width: 100%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 35px;
   overflow: hidden;
